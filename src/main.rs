@@ -18,7 +18,8 @@ fn main() -> std::io::Result<()>{
     }
     #[derive(Debug, Serialize, Deserialize)]
     struct Settings {
-        ip_settings: HashMap<String, IpSettings>
+        ip_settings: HashMap<String, IpSettings>,
+        client : String
     }
 
     // accessing the first argument given when starting the program
@@ -29,9 +30,8 @@ fn main() -> std::io::Result<()>{
     let config: Settings = serde_json::from_reader(config_file)?;
 
     // creating a new client and connecting it to mosquitto
-    let m = Mosquitto::new("dda");
+    let m = Mosquitto::new(&config.client);
     m.connect("localhost", 1883).expect("can't connect");
-    println!("{}", joined);
 
     // checking if the ip given by the first argument is included in the config file
     if let Some(ip_settings) = config.ip_settings.get(&joined){
@@ -41,7 +41,6 @@ fn main() -> std::io::Result<()>{
                 // saving the current values as variables to be used in the pubish funktion
                 let topic:&str = &(location.to_owned()+ "/" + device);
                 let payload = device_settings.as_bytes();
-                println!("{} {} {} {:?}", joined, location, device, device_settings);
                 // sending the values over the mosquitto mqtt broker
                 m.publish(topic, payload, 1, false).unwrap();
             }
