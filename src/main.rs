@@ -24,14 +24,14 @@ fn main() -> std::io::Result<()>{
     // accessing the first argument given when starting the program
     let joined = env::args().nth(1).unwrap();
     // accessing the JSON config file, opening it and deserializing it with the the structures above
-    let config_path = "/opt/sms_distributor/sms_config.json".to_string();
+    let config_path = "/mnt/c/Users/dda/rust_projects/raspberrypi/target/config/config.json".to_string();
     let config_file = File::open(config_path)?;
     let config: Settings = serde_json::from_reader(config_file)?;
 
     // creating a new client and connecting it to mosquitto
-    let m = Mosquitto::new("program");
+    let m = Mosquitto::new("dda");
     m.connect("localhost", 1883).expect("can't connect");
-    let mt = m.clone();
+    println!("{}", joined);
 
     // checking if the ip given by the first argument is included in the config file
     if let Some(ip_settings) = config.ip_settings.get(&joined){
@@ -43,11 +43,11 @@ fn main() -> std::io::Result<()>{
                 let payload = device_settings.as_bytes();
                 println!("{} {} {} {:?}", joined, location, device, device_settings);
                 // sending the values over the mosquitto mqtt broker
-                mt.publish(topic, payload, 1, false).unwrap();
+                m.publish(topic, payload, 1, false).unwrap();
             }
         }
         // disconnects the cloned client
-        mt.disconnect().unwrap();
+        m.disconnect().unwrap();
     }
     Ok(())
 }
