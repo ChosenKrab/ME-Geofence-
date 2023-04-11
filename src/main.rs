@@ -25,7 +25,7 @@ fn main() -> std::io::Result<()>{
     // accessing the first argument given when starting the program
     let joined = env::args().nth(1).unwrap();
     // accessing the JSON config file, opening it and deserializing it with the the structures above
-    let config_path = "/mnt/c/Users/dda/rust_projects/raspberrypi/target/config/config.json".to_string();
+    let config_path = "/mnt/c/Users/dda/rust_projects/raspberrypi/config/config.json".to_string();
     let config_file = File::open(config_path)?;
     let config: Settings = serde_json::from_reader(config_file)?;
 

@@ -1,0 +1,19 @@
+{
+    "ip_settings": {
+        "192.168.178.1": {
+            "location": {
+                "Buero1": {
+                    "device": {
+                        "Heizung": "22"
+                    }
+                },
+                "Wohnzimmer": {
+                    "device": {
+                        "Heizung": "24"
+                    }
+                }
+            }
+        }
+    },
+    "client" : "dda"
+}
