@@ -6,6 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+# https://github.com/stevedonovan/mosquitto-client
+mosquitto-client = "0.1.5"
 tempfile = "3.x.x"
 log = "0.4.x"
 config = "0.13.3"

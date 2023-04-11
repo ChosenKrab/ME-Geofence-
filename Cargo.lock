@@ -210,6 +210,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68354c5c6bd36d73ff3feceb05efa59b6acb7626617f4962be322a825e61f79a"
 
 [[package]]
+name = "mosquitto-client"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bf59e503a89f905da295a32eae676a1659a5e026a7e0643396dc22e8491a4846"
+
+[[package]]
 name = "nom"
 version = "7.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -309,6 +315,7 @@ version = "0.1.0"
 dependencies = [
  "config",
  "log",
+ "mosquitto-client",
  "serde",
  "serde_json",
  "tempfile",
