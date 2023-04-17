@@ -15,5 +15,7 @@
             }
         }
     },
-    "client" : "dda"
+    "client" : "dda",
+    "host" : "localhost",
+    "port" : 1883
 }

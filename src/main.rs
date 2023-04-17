@@ -19,7 +19,9 @@ fn main() -> std::io::Result<()>{
     #[derive(Debug, Serialize, Deserialize)]
     struct Settings {
         ip_settings: HashMap<String, IpSettings>,
-        client : String
+        client : String,
+        host : String,
+        port : u32
     }
 
     // accessing the first argument given when starting the program
@@ -31,7 +33,7 @@ fn main() -> std::io::Result<()>{
 
     // creating a new client and connecting it to mosquitto
     let m = Mosquitto::new(&config.client);
-    m.connect("localhost", 1883).expect("can't connect");
+    m.connect(&config.host, config.port).expect("can't connect");
 
     // checking if the ip given by the first argument is included in the config file
     if let Some(ip_settings) = config.ip_settings.get(&joined){
@@ -45,7 +47,7 @@ fn main() -> std::io::Result<()>{
                 m.publish(topic, payload, 1, false).unwrap();
             }
         }
-        // disconnects the cloned client
+        // disconnects the client
         m.disconnect().unwrap();
     }
     Ok(())
